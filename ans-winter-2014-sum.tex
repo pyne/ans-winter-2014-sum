@@ -1,0 +1,52 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{anstrans}
+%
+%  various packages that you may wish to activate for usage 
+\usepackage{graphicx}
+\usepackage{tabls}
+\usepackage{hyperref}
+\hypersetup{breaklinks=true, linkcolor=black, citecolor=black,
+  urlcolor=black, colorlinks=true, pdftitle={PyNE Progress Report}}
+\usepackage{listings}
+\usepackage{booktabs}
+%
+
+%General Short-Cut Commands
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+\newcommand{\subscript}[1]{\ensuremath{_{\textrm{#1}}}}
+%\newcommand{\nuc}[2]{\superscript{#2}{#1}}
+\newcommand{\nuc}[2]{{#1}-{#2}}
+\newcommand{\ith}[0]{$i^{\mbox{th}}$ }
+\newcommand{\jth}[0]{$j^{\mbox{th}}$ }
+\newcommand{\kth}[0]{$k^{\mbox{th}}$ }
+\newcommand{\us}[0]{$\mu$s }
+
+% New definition of square root:
+% it renames \sqrt as \oldsqrt
+\let\oldsqrt\sqrt
+% it defines the new \sqrt in terms of the old one
+\def\sqrt{\mathpalette\DHLhksqrt}
+\def\DHLhksqrt#1#2{%
+\setbox0=\hbox{$#1\oldsqrt{#2\,}$}\dimen0=\ht0
+\advance\dimen0-0.2\ht0
+\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+{\box0\lower0.4pt\box2}}
+
+
+
+\title{}
+
+\author{}
+
+\institute{}
+\email{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   BEGIN DOCUMENT
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\end{document}
