@@ -2,7 +2,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{PyNE Progress Report 2.0} 
-\author{Cameron~R.~Bates$^{1,2}$, Elliot~D.~Biondo$^{3}$, Kathryn~Huff$^{2}$ Anthony~Scopatz$^{3}$, ....}
+\author{Cameron~R.~Bates$^{1,2}$, Elliott~Biondo$^{3}$, Kathryn~Huff$^{2}$ Anthony~Scopatz$^{3}$, ....}
 
 \institute{
 
@@ -54,11 +54,52 @@ PyNE was originally developed for the Python 2 interpreter as it was, and still 
 
 \section{Feature Enhancements}
 
+\subsection{Mesh}
+(ANS 2013W pre-dated the Mesh class, so we need to talk about this)
+
+Most of the cool stuff was implemented by Anthony ...
+- Materials on mesh
+- Pythonic access to data stored on iMesh tags, material objects: slicing, fancy indexing, boolean masking.
+
+Mesh Oriented datABase (MOAB) \cite{tautges\_moab:\_2004}
+PyTAPS the Python interface to ITAPS \cite{pytaps}
+
+\subsection{DAGMC integration}
+
+Direct Accelerated Geometry Monte Carlo (DAGMC) is a component of MOAB that
+facilitates Monte Carlo ray tracing on CAD geometries
+\cite{tautges\_acceleration\_2009}.  A \texttt{dagmc} module has been added to
+PyNE, providing a Python interface to these ray tracing capabilities. The
+\texttt{dagmc.discretize\_geom()} function accomplishes the common task of
+mapping geometry cells onto Cartesian or tetrahedral mesh. The
+\texttt{cell\_fracs\_to\_mats} to method of the \texttt{Mesh} class can be used
+to seamlessly create PyNE \texttt{Mesh} object tagged with materials, where the
+materials are mixtures of the contributions from the various geometry cells
+found in each mesh volume element. This functionilty is especially 
+
+
 \subsection{R2S Activation Workflow}
+
+The Rigorous Two-Step (R2S) method {chen\_rigorous\_2002}
+
+In memory! leverage the 
+PyNE \texttt{mcnp}, \texttt{mesh},
+\texttt{material}, \texttt{alara}, \texttt{dagmc}, and \texttt{sampling}
+
+
+ALARA \cite{wilson\_validation\_1998}
+
 
 \subsection{CADIS variance reduction}
 
-\subsection{PyDAGMC integration}
+\subsection{Tally Class}
+
+\subsection{Fluka Module}
+
+\subsection{Future work}
+- unified DAGMC workflow
+- AHOT
+- multi-step CADIS MCVR
 
 \subsection{other stuff?}
 
