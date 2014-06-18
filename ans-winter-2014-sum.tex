@@ -61,18 +61,6 @@ PyNE was originally developed for the Python 2 interpreter as it was, and still 
 
 \subsection{Mesh}
 
-% (The writting of the ANS 2013W paper pre-dated the Mesh class, 
-% so we need to talk about this)
-%
-% Most of the cool stuff was implemented by Anthony ...
-% - Materials on mesh
-% - Pythonic access to data stored on iMesh tags, material objects: slicing, 
-%   fancy indexing, boolean masking.
-%
-% cite:
-%   Mesh Oriented datABase (MOAB) \cite{tautges_moab:_2004}
-%   PyTAPS the Python interface the MOAB implimentation of ITAPS \cite{pytaps}
-
 As of v0.4, PyNE includes a mesh representation interface that is used to 
 build up geometries, store materials, and solve spatial differential equations.
 This is implemented as a layer on top of MOAB meshes \cite{tautges_moab:_2004}.
@@ -116,6 +104,13 @@ geometries onto grids for deterministic methods.
 
 \subsection{ALARA module}
 
+ALARA is a nuclear inventory analysis code developed at University of Wisconsin
+- Madison \cite{wilson_validation_1998}. A module has been added to generate
+  ALARA input and parse ALARA output, primarily to and from mesh. PyNE
+\texttt{Mesh} objects tagged with flux and material data are used to generate
+flux and material input. The compositions of activated materials as calculated by
+ALARA can be read back into a PynE \texttt{Mesh} object.These components can be used
+in mesh-based activation and burn-up workflows.
 
 \subsection{R2S Activation Workflow}
 
@@ -127,18 +122,12 @@ The PyNE \texttt{R2S} module impliments a mesh-based R2S method and
 accomplishes this coupling in-memory by leveraging the PyNE \texttt{mesh},
 \texttt{material}, \texttt{dagmc}, \texttt{mcnp}, and \texttt{alara} modules.
 The \texttt{R2S} module currently only supports transport with MCNP and nuclear
-inventory analysis with ALARA \cite{wilson_validation_1998}, but support for
-addtional physics codes is planned. 
+inventory analysis with ALARA, but support for addtional physics codes is
+planned. Mesh-based photon source sampling is accomplished within MCNP by
+compiling MCNP against a custom source sampling library within PyNE.
 
-... Mesh-based photon source sampling is accomplished within MCNP by compiling MCNP against...
-% Not sure the best way to say this. Compile against pyne.so I guess? but it comes from source_sampling.cpp.
-
-
-\subsection{Source Sampling}
-
-%Elliott has not finished unit testing the Sampling module, but this remains a
-%high priority. Not sure if I want to go into detail because it is about to get a
-%huge facelift.
+% Not sure the best way to say this. Compile against pyne.so I guess? but it
+% comes from source_sampling.cpp.
 
 \subsection{CADIS variance reduction}
 
