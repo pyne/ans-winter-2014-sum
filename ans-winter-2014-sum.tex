@@ -58,6 +58,10 @@ $^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, C
 % gradient
 \newcommand{\ud}{\mathop{}\!\mathrm{d}} 
 
+% Common APIs
+\newcommand{\Mesh}{\texttt{Mesh}} 
+\newcommand{\Material}{\texttt{Material}} 
+
 % upright derivative symbol
 \begin{document}
 
@@ -105,15 +109,27 @@ with both versions. PyNE is now built and tested on Python 3 on a regular basis.
 
 \subsection{Mesh}
 
-% (The writting of the ANS 2013W paper pre-dated the Mesh class, so we need to talk about this)
-%
-% Most of the cool stuff was implemented by Anthony ...
-% - Materials on mesh
-% - Pythonic access to data stored on iMesh tags, material objects: slicing, fancy indexing, boolean masking.
-%
-% cite:
-% Mesh Oriented datABase (MOAB) \cite{tautges_moab:_2004}
-% PyTAPS the Python interface the MOAB implimentation of ITAPS \cite{pytaps}
+As of v0.4, PyNE includes a mesh representation interface that is used to 
+build up geometries, store materials, and solve spatial differential equations.
+This is implemented as a layer on top of MOAB meshes \cite{tautges_moab:_2004}.
+In addition to the PyTAPS interface \cite{pytaps} it also adds PyNE materials to 
+volume elements as well as a a generic tagging interface. These features together 
+form a generic, easy-to-use mesh library that is capable of handling a plethora
+of nuclear engineering problems.
+
+The \Mesh class lives in the \texttt{pyne.mesh} module. This class houses an 
+iMesh instance called \texttt{mesh} which comes from PyTAPS and contains 
+methods for native mesh operations. The \texttt{mats} attribute is an 
+instance of a PyNE \texttt{MaterialLibrary}. This is a mapping of volume 
+element handles to \Material objects. Tags - sometimes known as fields - are 
+accessible as attributes on the mesh object itself. There are several different types
+of tags (IMesh, Material, Metadata, Computed) dependning on where the data should
+be stored.  All tag types expose the same interface. 
+
+To do volumetric analyis and visulaization, the \Mesh class is natively supported 
+by the yt project \cite{2011ApJS..192....9T}.
+
+% put sexy yt image here?
 
 \subsection{DAGMC integration}
 
@@ -136,6 +152,13 @@ geometries onto grids for deterministic methods.
 
 \subsection{ALARA module}
 
+ALARA is a nuclear inventory analysis code developed at University of Wisconsin
+- Madison \cite{wilson_validation_1998}. A module has been added to generate
+  ALARA input and parse ALARA output, primarily to and from mesh. PyNE
+\texttt{Mesh} objects tagged with flux and material data are used to generate
+flux and material input. The compositions of activated materials as calculated by
+ALARA can be read back into a PynE \texttt{Mesh} object.These components can be used
+in mesh-based activation and burn-up workflows.
 
 \subsection{R2S Activation Workflow}
 
@@ -147,24 +170,12 @@ The PyNE \texttt{R2S} module impliments a mesh-based R2S method and
 accomplishes this coupling in-memory by leveraging the PyNE \texttt{mesh},
 \texttt{material}, \texttt{dagmc}, \texttt{mcnp}, and \texttt{alara} modules.
 The \texttt{R2S} module currently only supports transport with MCNP and nuclear
-inventory analysis with ALARA \cite{wilson_validation_1998}, but support for
-addtional physics codes is planned. 
+inventory analysis with ALARA, but support for addtional physics codes is
+planned. Mesh-based photon source sampling is accomplished within MCNP by
+compiling MCNP against a custom source sampling library within PyNE.
 
-... Mesh-based photon source sampling is accomplished within MCNP by compiling MCNP against...
-% Not sure the best way to say this. Compile against pyne.so I guess? but it comes from source_sampling.cpp.
-
-
-\subsection{Source Sampling}
-
-The PyNE development team is currently working to develop a suite of tools to 
-simplify the use of complex sources with spatial variation in radiation transport
-codes. As a part of this we are in the process of developing algorithms to efficiently
-sample both spatial and energy distributions for a mesh based source. Our initial
-implementation will focus on compatibility with MCNP but we plan to extend this to
-other popular transport codes.
-%Elliott has not finished unit testing the Sampling module, but this remains a
-%high priority. Not sure if I want to go into detail because it is about to get a
-%huge facelift.
+% Not sure the best way to say this. Compile against pyne.so I guess? but it
+% comes from source_sampling.cpp.
 
 \subsection{CADIS variance reduction}
 
