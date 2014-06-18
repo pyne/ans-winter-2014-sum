@@ -2,15 +2,36 @@
 
 \usepackage{url}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{PyNE Progress Report 2.0} 
-\author{Cameron~R.~Bates$^{1,2}$, Elliott~Biondo$^{3}$, Kathryn~Huff$^{2}$ Anthony~Scopatz$^{3}$, ....}
+\title{PyNE Progress Report} 
+\author{Cameron~R.~Bates$^{1,2}$, Elliott~Biondo$^{3}$, Kathryn~Huff$^{2}$, 
+Kalin Kiesling$^{3}$, Anthony~Scopatz$^{3}$ \\ 
+ \hspace{1.0in}\\
+Carsten Brachem$^{4}$,
+Robert Carlson$^{3}$,
+Andrew Davis$^{3}$,
+Matthew Gidden$^{3}$,
+Tim Haines$^{3}$,
+Joshua Howland$^{2}$,
+Blake Huff$^{2}$,
+Kevin Manalo$^{5}$,
+Arielle Opotowsky$^{3}$,
+Rachel Slaybaugh$^{2}$,
+Eric Relson$^{3}$,
+Paul Romano$^{6}$,
+Patrick Shriwise$^{3}$,
+John D. Xia$^{7}$,
+Paul Wilson$^{3}$, and
+Julie Zachman$^{3}$}
 
 \institute{
 
-$^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, CA 94550, USA \\
-\and $^{2}$ The University of California, Berkeley, 2521 Hearst Ave, Berkeley, CA 94709, USA \\
-\and $^{3}$ The University of Wisconsin-Madison, 1415 Engineering Drive, Madison, WI 53706, USA
-
+$^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, CA 94550\\
+\and $^{2}$ The University of California, Berkeley, 2521 Hearst Ave, Berkeley, CA 94709 \\
+\and $^{3}$ The University of Wisconsin-Madison, 1415 Engineering Drive, Madison, WI 53706\\
+\and $^{4}$ Technische Universit\"at Dresden, Helmholtzstr. 10 01069 Dresden, Germany \\
+\and $^{5}$ Georgia Institute of Technology, 770 State Street, Atlanta, GA 30332\\
+\and $^{6}$ Massachusetts Institute of Technology, 77 Massachustts Avenue, Cambridge, MA 02139 \\
+\and $^{7}$ University of Chicago, 5747 S. Ellis Ave., Jones 311, Chicago, IL 60637\\
 }
 
 \email{bates26@llnl.gov}
@@ -43,15 +64,42 @@ $^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, C
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-PyNE is a suite of free and open source (BSD licensed) tools to aid in computational nuclear science and engineering. PyNE seeks to provide native implementations of common nuclear algorithms, as well as Python bindings and I/O support for industry standard nuclear codes. In the past year, the PyNE development team has improved PyNE's ease of use by making binaries available for Windows, Mac, and Linux through the conda package manager and adding Python 3 support. PyNE has also added many features a including rigorous 2-step activation workflow \cite{Biondo2014}, PyDAGMC integration, CADIS variance reduction, and expanded ENSDF parsing support. As a part of our ongoing efforts to implement a verification and validation framework we also added continuous integration using the Build and Test Lab at the University of Wisconsin.
+PyNE is a suite of free and open source (BSD licensed) tools to aid in 
+computational nuclear science and engineering. PyNE seeks to provide 
+native implementations of common nuclear algorithms, as well as Python 
+bindings and I/O support for industry standard nuclear codes. In the past 
+year, the PyNE development team has improved PyNE's ease of use by making 
+binaries available for Windows, Mac, and Linux through the conda package 
+manager and adding Python 3 support. PyNE has also added many features a 
+including rigorous 2-step activation workflow \cite{Biondo2014}, PyDAGMC 
+integration, CADIS variance reduction, and expanded ENSDF parsing support. 
+As a part of our ongoing efforts to implement a verification and validation 
+framework we also added continuous integration using the Build and Test Lab 
+at the University of Wisconsin.
 
 \section{Lowering the barrier to entry}
 
-At our first PyNE workshop the development team was made painfully aware of the need to codify and simplify the install process. This lead to a concerted effort to both improve our install instructions and develop a binary distribution of PyNE. The core of this effort is based around the conda package manager. Conda is an open source package manager developed for Anaconda that is capable of managing packages on windows, mac and linux. This makes it possible to use a single package manager across all platforms. We developed a standard conda package script which can be found at https://github.com/conda/conda-recipes. This makes it possible to have a sure method of building and install PyNE on mac and linux for new users. In addition we used this tool to produce binary packages on linux and mac. Finally, we developed a custom windows build environment to build a distributable windows binary.
+At our first PyNE workshop the development team was made painfully aware of 
+the need to codify and simplify the install process. This lead to a concerted 
+effort to both improve our install instructions and develop a binary 
+distribution of PyNE. The core of this effort is based around the conda 
+package manager. Conda is an open source package manager that is capable 
+of managing packages on windows, mac and linux. This makes it possible to use 
+a single package manager across all platforms. We developed a standard conda 
+package script which can be found at https://github.com/conda/conda-recipes. 
+This makes it possible to have a sure method of building and install PyNE 
+on mac and linux for new users. In addition we used this tool to produce binary 
+packages on linux and mac. Finally, we developed a custom windows build 
+environment to build a distributable windows binary.
 
 \subsection{Future proofing PyNE}
 
-PyNE was originally developed for the Python 2 interpreter as it was, and still is the most common version of Python in scientific computing. Python 3 is slowly starting to replace it however as the default Python version. With this changeover on the horizon the PyNE development team made effort in preparation for the 0.4 release to make PyNE compatible with both versions. PyNE is now built and tested on Python 3 on a regular basis.
+PyNE was originally developed for the Python 2 interpreter as it was, 
+and still is the most common version of Python in scientific computing. 
+Python 3 is slowly starting to replace it however as the default Python 
+version. With this changeover on the horizon the PyNE development team 
+made effort in preparation for the 0.4 release to make PyNE compatible 
+with both versions. PyNE is now built and tested on Python 3 on a regular basis.
 
 \section{Feature Enhancements}
 
@@ -108,6 +156,12 @@ addtional physics codes is planned.
 
 \subsection{Source Sampling}
 
+The PyNE development team is currently working to develop a suite of tools to 
+simplify the use of complex sources with spatial variation in radiation transport
+codes. As a part of this we are in the process of developing algorithms to efficiently
+sample both spatial and energy distributions for a mesh based source. Our initial
+implementation will focus on compatibility with MCNP but we plan to extend this to
+other popular transport codes.
 %Elliott has not finished unit testing the Sampling module, but this remains a
 %high priority. Not sure if I want to go into detail because it is about to get a
 %huge facelift.
@@ -127,38 +181,88 @@ code to in order to acquire these determinsitic fluxes.
 
 \subsection{Tally Class}
 
+One common requirement in processing the output of MCNP and other nuclear
+engineering codes is to keep track of multiple tallies. PyNE has added a
+C++ class with a Python interface that assists users in keeping track of
+tally data. The PyNE development team is working to add saving, loading,
+and manipulation of these tally objects in the future.
+
 \subsection{Fluka Module}
 
-\subsection{Future work}
-- unified DAGMC workflow
-- AHOT
-- multi-step CADIS MCVR
-
-\subsection{other stuff?}
+The FLUKA module is designed to parse the output files from FLUKA, a fully 
+integrated particle physics Monte Carlo simulation package. Currently, 
+this module only supports the parsing of USRBIN output files, which is 
+a file similar to a meshtal file in MCNP in that it tracks a certain 
+quantity over an evenly spaced volume mesh. This module parses the USRBIN 
+files and saves the tracked data and percent error data as attributes of 
+a mesh object.
 
 \subsection{Amalgamation}
 
-While PyNE is ostensibly a Python oriented toolkit over two-thirds of the codebase is written in C++. This makes it possible to use many of the features of PyNE without needing Python. In order to simplify the use of PyNE's C++ API we have added the ability to amalgamate all of the C++ code into a single source and header file. This makes it possible to just add these two files to any project in order to use much of the functionality in PyNE without having to worry about linking multiple libraries in a seperate location. This is used in Cyclus (http://fuelcycle.org) to use PyNE features without adding a dependency on python.
+While PyNE is ostensibly a Python oriented toolkit over two-thirds 
+of the codebase is written in C++. This makes it possible to use many 
+of the features of PyNE without needing Python. In order to simplify 
+the use of PyNE's C++ API we have added the ability to amalgamate all 
+of the C++ code into a single source and header file. This makes it 
+possible to add these two files to any project in order to use much of the 
+functionality in PyNE without having to worry about linking multiple 
+libraries in a seperate location. This is used in Cyclus (http://fuelcycle.org)
+ to use PyNE features without adding a dependency on python.
 
 \subsection{ENSDF Improvements}
 
-Previous versions of PyNE have included some limited ENDF parsing capabilities. These have been focused on extracting half lives and branching ratios of metastable and ground states. This has been vastly expanded to support the parsing of most ENSDF record types and to make level structure and decay data available in PyNE's C++/Python nuclear data interface. This makes it possible to use PyNE to look up decay data, similar to what can be done with nudat2. 
+Previous versions of PyNE have included some limited ENDF parsing capabilities. 
+These have been focused on extracting half lives and branching ratios of 
+metastable and ground states. This has been vastly expanded to support the 
+parsing of most ENSDF record types and to make level structure and decay data 
+available in PyNE's C++/Python nuclear data interface. This makes it possible 
+to use PyNE to look up decay data, similar to what can be done with nudat2. 
 
-We have broken down the data from ENSDF into six distinct subsets. These include: excited level data, decay normalization data, gamma-ray data, alpha decay data, $\beta^-$ decay, and electron capture/$\beta^+$ decay. In addition to information about the radiations for all decay transitions listed in ENSDF we have also included atomic data from NNDC to calculate X-ray emmissions from conversion electrons in gamma ray emmission and electron capture/$\beta^+$ decay.
+We have broken down the data from ENSDF into six distinct subsets. These 
+include: excited level data, decay normalization data, gamma-ray data, alpha 
+decay data, $\beta^-$ decay, and electron capture/$\beta^+$ decay. In addition 
+to information about the radiations for all decay transitions listed in ENSDF we 
+have also included atomic data from NNDC to calculate X-ray emmissions from 
+conversion electrons in gamma ray emmission and electron capture/$\beta^+$ decay.
 
 \subsection{Fission Yield data}
 
-The latest release of PyNE includes two different sets of fission yield data. The first is the IAEA WIMSD library which provides fission product yields based on ENDF/B-VI. The second is from the IAEA Safeguards data library and includes independent fission yields with thermal, fast, and 14-MeV neutrons for $^{232}$Th, $^{233}$U, $^{235}$U, $^{239}$Pu, and $^{241}$Pu.
+The latest release of PyNE includes two different sets of fission yield data. 
+The first is the IAEA WIMSD library which provides fission product yields 
+based on ENDF/B-VI. The second is from the IAEA Safeguards data library and includes 
+independent fission yields with thermal, fast, and 14-MeV neutrons for $^{232}$Th, 
+$^{233}$U, $^{235}$U, $^{239}$Pu, and $^{241}$Pu.
 
 \section{Verification and Validation}
 
-This issue will be addressed in more detail in other concurrent publications but the PyNE development team is working to implement documented verification and validation as a part of our basic development process. This has included: ensuring all code changes to PyNE have at least one reviewer who was not an author, tests of all code additions, a coding style guide, requiring all tests to pass on continuous integration builds before merging code changes. 
+This issue will be addressed in more detail in other concurrent publications 
+but the PyNE development team is working to implement documented verification 
+and validation as a part of our basic development process. This has included: 
+ensuring all code changes to PyNE have at least one reviewer who was not an 
+author, requiring unit tests for all code additions, a coding style guide, 
+and requiring all tests to pass on continuous integration builds before 
+merging code changes. 
 
-\section{Katy's fluffy stuff} Tutorials, GSOC .....
+
+\section{Future work}
+
+PyNE is a constantly evolving toolkit with features at many stages of 
+development. In addition to the enhancements described above the PyNE
+development team is also in the process of planning addition features.
+These include: a unified workflow for the DAGMC module to make it more user
+friendly, integration of the Arbitrarily High Order Transport code which has
+been graciously donated by Yousry Azmy, and the extenstion of the CADIS
+variance reduction module to easily support multi-step workflows. 
+
 
 \section{Conclusions}
 
-In the past year the PyNE development team has worked to improve PyNE's usability in addition to adding new features. The availability of binaries for stable releases has made PyNE more accessible to those who are users but not developers. The PyNE project will continue to create free and open source tools that easily interface the plethora of choices available in nuclear engineering and scientific computing. 
+In the past year the PyNE development team has worked to improve PyNE's 
+usability in addition to adding new features. The availability of binaries 
+for stable releases has made PyNE more accessible to those who are users 
+but not developers. The PyNE project will continue to create free and open 
+source tools that easily interface the plethora of choices available in 
+nuclear engineering and scientific computing. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
