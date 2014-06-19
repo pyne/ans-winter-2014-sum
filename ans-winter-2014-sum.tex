@@ -81,28 +81,29 @@ As a part of our ongoing efforts to implement a verification and validation
 framework we also added continuous integration using the Build and Test Lab 
 at the University of Wisconsin.
 
-\section{Lowering the barrier to entry}
-
+\section{Usability Enhancements}
+\subsection{Installation Improvements and Binary Distributions}
 At our first PyNE workshop the development team was made painfully aware of 
 the need to codify and simplify the install process. This lead to a concerted 
 effort to both improve our install instructions and develop a binary 
 distribution of PyNE. The core of this effort is based around the conda 
 package manager. Conda is an open source package manager that is capable 
-of managing packages on windows, mac and linux. This makes it possible to use 
+of managing packages on Windows, Mac and Linux. This makes it possible to use 
 a single package manager across all platforms. We developed a standard conda 
 package script which can be found at https://github.com/conda/conda-recipes. 
-This makes it possible to have a sure method of building and install PyNE 
-on mac and linux for new users. In addition we used this tool to produce binary 
-packages on linux and mac. Finally, we developed a custom windows build 
+This automates the installation of dependencies for PyNE, significantly 
+reducing the difficulty of building and installing the software.
+In addition we used this tool to produce binary 
+packages on Linux and Mac. Finally, we developed a custom Windows build 
 environment to build a distributable windows binary.
 
-\subsection{Future proofing PyNE}
+\subsection{Python 3 support}
 
-PyNE was originally developed for the Python 2 interpreter as it was, 
-and still is the most common version of Python in scientific computing. 
-Python 3 is slowly starting to replace it however as the default Python 
+PyNE was originally developed for the Python 2 interpreter as it was 
+and still is the most common version of Python used in scientific computing. 
+Python 3 is slowly starting to replace it, however, as the default Python 
 version. With this changeover on the horizon the PyNE development team 
-made effort in preparation for the 0.4 release to make PyNE compatible 
+made an effort in preparation for the 0.4 release to make PyNE compatible 
 with both versions. PyNE is now built and tested on Python 3 on a regular basis.
 
 \section{Feature Enhancements}
@@ -113,7 +114,7 @@ As of v0.4, PyNE includes a mesh representation interface that is used to
 build up geometries, store materials, and solve spatial differential equations.
 This is implemented as a layer on top of MOAB meshes \cite{tautges_moab:_2004}.
 In addition to the PyTAPS interface \cite{pytaps} it also adds PyNE materials to 
-volume elements as well as a a generic tagging interface. These features together 
+volume elements as well as a generic tagging interface. These features together 
 form a generic, easy-to-use mesh library that is capable of handling a plethora
 of nuclear engineering problems.
 
@@ -123,15 +124,15 @@ methods for native mesh operations. The \texttt{mats} attribute is an
 instance of a PyNE \texttt{MaterialLibrary}. This is a mapping of volume 
 element handles to \Material objects. Tags - sometimes known as fields - are 
 accessible as attributes on the mesh object itself. There are several different types
-of tags (IMesh, Material, Metadata, Computed) dependning on where the data should
-be stored.  All tag types expose the same interface. 
+of tags (IMesh, Material, Metadata, Computed) depending on where the data should
+be stored. All tag types expose the same interface. 
 
-To do volumetric analyis and visulaization, the \Mesh class is natively supported 
+To do volumetric analysis and visualization, the \Mesh class is natively supported 
 by the yt project \cite{2011ApJS..192....9T}.
 
 % put sexy yt image here?
 
-\subsection{DAGMC integration}
+\subsection{DAGMC Integration}
 
 Direct Accelerated Geometry Monte Carlo (DAGMC) is a component of MOAB that
 facilitates Monte Carlo ray tracing on CAD geometries
@@ -150,11 +151,11 @@ geometries onto grids for deterministic methods.
 % http://grabcad.com/library/tree--4
 
 
-\subsection{ALARA module}
+\subsection{ALARA Module}
 
 ALARA is a nuclear inventory analysis code developed at University of Wisconsin
 - Madison \cite{wilson_validation_1998}. A module has been added to generate
-  ALARA input and parse ALARA output, primarily to and from mesh. PyNE
+  ALARA input and parse ALARA output, primarily to and from PyNE \texttt{Mesh} objects. PyNE
 \texttt{Mesh} objects tagged with flux and material data are used to generate
 flux and material input. The compositions of activated materials as calculated by
 ALARA can be read back into a PynE \texttt{Mesh} object.These components can be used
@@ -177,15 +178,15 @@ compiling MCNP against a custom source sampling library within PyNE.
 % Not sure the best way to say this. Compile against pyne.so I guess? but it
 % comes from source_sampling.cpp.
 
-\subsection{CADIS variance reduction}
+\subsection{CADIS Variance Reduction}
 
 The Consistant Adjoint-Weighted Importance Sampling (CADIS) and the
-Forward-Weighted CADIS (FW-CADIS) method are a hybrid MC variance reduction
+Forward-Weighted CADIS (FW-CADIS) method are a hybrid Monte Carlo variance reduction
 techniques that use determinstic estimates of the forward and adjoint flux to
-generate MC weight windows and source biasing parameters
+generate Monte Carlo weight windows and source biasing parameters
 \cite{haghighat_monte_2003}. A mesh-based implimentation of this method has
 been added to the PyNE \texttt{variancereduction} module. Work is currently
-underway to interface with the Denovo \cite{Denovo} deterministic transport
+underway to interface with the Denovo \cite{Evans2010} deterministic transport
 code to in order to acquire these determinsitic fluxes.
 
 % need add Denovo reference to .bib
@@ -200,7 +201,7 @@ and manipulation of these tally objects in the future.
 
 \subsection{Fluka Module}
 
-The FLUKA module is designed to parse the output files from FLUKA, a fully 
+The \texttt{fluka} module is designed to parse the output files from FLUKA, a fully 
 integrated particle physics Monte Carlo simulation package. Currently, 
 this module only supports the parsing of USRBIN output files, which is 
 a file similar to a meshtal file in MCNP in that it tracks a certain 
@@ -222,12 +223,13 @@ libraries in a seperate location. This is used in Cyclus (http://fuelcycle.org)
 
 \subsection{ENSDF Improvements}
 
-Previous versions of PyNE have included some limited ENDF parsing capabilities. 
+Previous versions of PyNE have included some limited ENSDF parsing capabilities. 
 These have been focused on extracting half lives and branching ratios of 
 metastable and ground states. This has been vastly expanded to support the 
 parsing of most ENSDF record types and to make level structure and decay data 
 available in PyNE's C++/Python nuclear data interface. This makes it possible 
-to use PyNE to look up decay data, similar to what can be done with nudat2. 
+to use PyNE to look up most structure and decay data similar to online tools
+such as NuDat. 
 
 We have broken down the data from ENSDF into six distinct subsets. These 
 include: excited level data, decay normalization data, gamma-ray data, alpha 
@@ -235,8 +237,10 @@ decay data, $\beta^-$ decay, and electron capture/$\beta^+$ decay. In addition
 to information about the radiations for all decay transitions listed in ENSDF we 
 have also included atomic data from NNDC to calculate X-ray emmissions from 
 conversion electrons in gamma ray emmission and electron capture/$\beta^+$ decay.
+The combination of this data makes it possible to calculate coincidence rates for
+gamma-rays.
 
-\subsection{Fission Yield data}
+\subsection{Fission Yield Data}
 
 The latest release of PyNE includes two different sets of fission yield data. 
 The first is the IAEA WIMSD library which provides fission product yields 
@@ -258,23 +262,13 @@ merging code changes.
 \section{Cultivation of Users and Developers} 
 Computational toolkits in the sciences grow more robust by a broad user base who tests core capabilities with each use. Similarly, such toolkits grow more powerful by a broad developer base that serves the community by contributing new, research-relevant features. Development of a sustainable user and developer community is therefore integral to the success of the PyNE toolkit. To this end, the development team has organized tutorials to reach out to new users and has sought out support development by graduate students.
 
-A tutorial at the University of California Berkeley was organized in <November?> to both reach out to new users and to gather feedback on the user experience of PyNE. Over a dozen researchers attended. The audience included undergraduate and graduate students in nuclear engineering as well as postdoc and faculty. In a six hour workshop, the attendees installed PyNE and ran prepared examples with the help of members of the development team. In addition to demonstrating the core data manipulation capabilities of the PyNE toolkit, the workshop included a reflective period in which attendees had the opportunity to spbrainstorm and suggest extensions, features, and improvements for the toolkit that were of interest in the context of their particular research. We learned from this experience <discussion-of-installation-push>.
+A tutorial at the University of California, Berkeley was organized in November to both reach out to new users and to gather feedback on the user experience of PyNE. Over a dozen researchers attended. The audience included undergraduate and graduate students in nuclear engineering as well as postdocs and faculty. In a six hour workshop, the attendees installed PyNE and ran prepared examples with the help of members of the development team. In addition to demonstrating the core data manipulation capabilities of the PyNE toolkit, the workshop included a reflective period in which attendees had the opportunity to brainstorm and suggest extensions, features, and improvements for the toolkit that were of interest in the context of their particular research.
 
-Based on the success of this event and the organic growth of our user base, a second user workshop will be conducted at RPSD. <insert-discussion-of-expectations>.
+Based on the success of this event and the organic growth of our user base, a second user workshop will be conducted at RPSD.
 
-The development team has also conducted  development both UCBerkeley and the University of Wisconsin to cultivate the developer communities that have arisen in those institutions. These sprints allow the diverse and geographically dispersed development team to gather and collaborate on code contributions in a coherent manner.
+The development team has also conducted development sprints both UC Berkeley and the University of Wisconsin to cultivate the developer communities that have arisen in those institutions. These sprints allow the diverse and geographically dispersed development team to gather and collaborate on code contributions in a coherent manner.
 
 In order to encourage young researchers to become involved in scientific computing, a number of desired PyNE extensions have been defined online. These short descriptions of desired extensions can be found on the PyNE website and are intended to guide the contributions of young researchers. By defining relevant independent contributions with realistic scope, these descriptions provide an opportunity for a beginner developer to contribute code in a guided manner and will assist their transition from user to developer.
-
-\section{Future work}
-
-PyNE is a constantly evolving toolkit with features at many stages of 
-development. In addition to the enhancements described above the PyNE
-development team is also in the process of planning addition features.
-These include: a unified workflow for the DAGMC module to make it more user
-friendly, integration of the Arbitrarily High Order Transport code which has
-been graciously donated by Yousry Azmy, and the extenstion of the CADIS
-variance reduction module to easily support multi-step workflows. 
 
 \section{Conclusions}
 
