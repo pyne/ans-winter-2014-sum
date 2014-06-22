@@ -1,6 +1,7 @@
 \documentclass{anstrans}
 
 \usepackage{url}
+\usepackage{subfigure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{PyNE Progress Report} 
 \author{Cameron~R.~Bates$^{1,2}$, Elliott~Biondo$^{3}$, Kathryn~Huff$^{2}$, 
@@ -72,8 +73,8 @@ native implementations of common nuclear algorithms, as well as Python
 bindings and I/O support for industry standard nuclear codes. In the past 
 year, the PyNE development team has improved PyNE's ease of use by making 
 binaries available for Windows, Mac, and Linux through the conda package 
-manager and adding Python 3 support. PyNE has also added many features a 
-including rigorous 2-step activation workflow \cite{Biondo2014}, PyDAGMC 
+manager and adding Python 3 support. PyNE has also added many features 
+including a Rigorous 2-step Activation workflow \cite{Biondo2014}, PyDAGMC 
 integration, CADIS variance reduction, and expanded ENSDF parsing support. 
 As a part of our ongoing efforts to implement a verification and validation 
 framework we also added continuous integration using the Build and Test Lab 
@@ -81,7 +82,7 @@ at the University of Wisconsin.
 
 \section{Usability Enhancements}
 \subsection{Installation Improvements and Binary Distributions}
-At our first PyNE workshop the development team was made painfully aware of 
+At our first PyNE workshop the development team was made painfully aware of % "painfully" may be too candid? 
 the need to codify and simplify the install process. This lead to a concerted 
 effort to both improve our install instructions and develop a binary 
 distribution of PyNE. The core of this effort is based around the conda 
@@ -93,9 +94,9 @@ This automates the installation of dependencies for PyNE, significantly
 reducing the difficulty of building and installing the software.
 In addition we used this tool to produce binary 
 packages on Linux and Mac. Finally, we developed a custom Windows build 
-environment to build a distributable windows binary.
+environment to build a distributable Windows binary.
 
-\subsection{Python 3 support}
+\subsection{Python 3 Support}
 
 PyNE was originally developed for the Python 2 interpreter as it was 
 and still is the most common version of Python used in scientific computing. 
@@ -120,7 +121,7 @@ The \Mesh class lives in the \texttt{pyne.mesh} module. This class houses an
 iMesh instance called \texttt{mesh} which comes from PyTAPS and contains 
 methods for native mesh operations. The \texttt{mats} attribute is an 
 instance of a PyNE \texttt{MaterialLibrary}. This is a mapping of volume 
-element handles to \Material objects. Tags - sometimes known as fields - are 
+element handles to \Material objects. Tags --- sometimes known as fields --- are 
 accessible as attributes on the mesh object itself. There are several different types
 of tags (IMesh, Material, Metadata, Computed) depending on where the data should
 be stored. All tag types expose the same interface. 
@@ -130,7 +131,7 @@ by the yt project \cite{2011ApJS..192....9T}.
 
 % put sexy yt image here?
 
-\subsection{DAGMC Integration}
+\subsection{PyDAGMC Integration}
 
 Direct Accelerated Geometry Monte Carlo (DAGMC) is a component of MOAB that
 facilitates Monte Carlo ray tracing on CAD geometries
@@ -139,14 +140,27 @@ PyNE, providing a Python interface to these ray tracing capabilities. The
 \texttt{dagmc.discretize\_geom()} function accomplishes the common task of
 mapping geometry cells onto Cartesian or tetrahedral mesh. The
 \texttt{cell\_fracs\_to\_mats} to method of the \texttt{Mesh} class can be used
-to seamlessly create PyNE \texttt{Mesh} objects tagged with materials, where the
-materials are mixtures of the contributions from the various geometry cells
+to seamlessly create PyNE \texttt{Mesh} objects tagged with materials, where
+the materials are mixtures of the contributions from the various geometry cells
 found in each mesh volume element. This especially useful for discretizing CAD
-geometries onto grids for deterministic methods.
+geometries onto grids for deterministic methods. An example of this is shown in
+Fig. \ref{mobius}.
 
-% If we need images, I could add a teapot-esque example. Though if we feel the
-% teapot is getting trite I can do a different model. Ostensible a PyNE tree:
-% http://grabcad.com/library/tree--4
+\begin{figure}
+\centering
+\subfigure[CAD model of a complex geometry \cite{mobius}.]{
+    \label{mobius_cad}
+\hspace{1.3cm}
+\includegraphics[width=4.86cm]{mobius_cad.png}
+}
+\subfigure[Volume fractions of the geometry within the mesh volume elements of an overlaid 200 x 100 x 200 Cartesian mesh.]{
+    \label{mobius_mesh}
+\includegraphics[width=6.3cm]{mobius_mesh.png}
+}
+\caption{A CAD geometry and a
+discretized representation created using PyNE \texttt{discretize\_geom()}.}
+\label{mobius}
+\end{figure}
 
 
 \subsection{ALARA Module}
@@ -156,7 +170,7 @@ ALARA is a nuclear inventory analysis code developed at University of Wisconsin
   ALARA input and parse ALARA output, primarily to and from PyNE \texttt{Mesh} objects. PyNE
 \texttt{Mesh} objects tagged with flux and material data are used to generate
 flux and material input. The compositions of activated materials as calculated by
-ALARA can be read back into a PynE \texttt{Mesh} object.These components can be used
+ALARA can be read back into a PynE \texttt{Mesh} object. These components can be used
 in mesh-based activation and burn-up workflows.
 
 \subsection{R2S Activation Workflow}
@@ -179,7 +193,7 @@ compiling MCNP against a custom source sampling library within PyNE.
 \subsection{CADIS Variance Reduction}
 
 The Consistant Adjoint-Weighted Importance Sampling (CADIS) and the
-Forward-Weighted CADIS (FW-CADIS) method are a hybrid Monte Carlo variance reduction
+Forward-Weighted CADIS (FW-CADIS) method are hybrid Monte Carlo variance reduction
 techniques that use determinstic estimates of the forward and adjoint flux to
 generate Monte Carlo weight windows and source biasing parameters
 \cite{haghighat_monte_2003}. A mesh-based implimentation of this method has
@@ -187,7 +201,6 @@ been added to the PyNE \texttt{variancereduction} module. Work is currently
 underway to interface with the Denovo \cite{Evans2010} deterministic transport
 code to in order to acquire these determinsitic fluxes.
 
-% need add Denovo reference to .bib
 
 \subsection{Tally Class}
 
