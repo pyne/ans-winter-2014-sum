@@ -82,17 +82,20 @@ at the University of Wisconsin.
 
 \section{Usability Enhancements}
 \subsection{Installation Improvements and Binary Distributions}
-At our first PyNE workshop the development team was made painfully aware of % "painfully" may be too candid? 
-the need to codify and simplify the install process. This lead to a concerted 
-effort to both improve our install instructions and develop a binary 
-distribution of PyNE. The core of this effort is based around the conda 
+At our first PyNE workshop a significant amount of the instructional
+time was devoted to PyNE installation and configuration. This reduced 
+the amount of material we were able to cover significantly. From this
+experience the PyNE development team came to the conclusion that a major
+focus of our version 0.4 development efforts should be on making the 
+installation process simpler for non-developers.
+The core of this effort is based around the conda 
 package manager. Conda is an open source package manager that is capable 
 of managing packages on Windows, Mac and Linux. This makes it possible to use 
 a single package manager across all platforms. We developed a standard conda 
-package script which can be found at https://github.com/conda/conda-recipes. 
+package script which can be found at \url{https://github.com/conda/conda-recipes}. 
 This automates the installation of dependencies for PyNE, significantly 
 reducing the difficulty of building and installing the software.
-In addition we used this tool to produce binary 
+In addition, we used this tool to produce binary 
 packages on Linux and Mac. Finally, we developed a custom Windows build 
 environment to build a distributable Windows binary.
 
@@ -127,9 +130,16 @@ of tags (IMesh, Material, Metadata, Computed) depending on where the data should
 be stored. All tag types expose the same interface. 
 
 To do volumetric analysis and visualization, the \Mesh class is natively supported 
-by the yt project \cite{2011ApJS..192....9T}.
+by the yt project \cite{2011ApJS..192....9T}. An example of the use of this mesh
+to analyze nuetron flux in ITER is shown in Fig. \ref{ITER}
 
-% put sexy yt image here?
+\begin{figure}
+    \centering
+    \includegraphics[width=7.1cm, angle =0]{iter_slice.png}
+    \caption{A 2-D slice of a 3-D ITER flux mesh showing photon flux}
+    \label{ITER}
+\end{figure}
+
 
 \subsection{PyDAGMC Integration}
 
@@ -151,11 +161,11 @@ Fig. \ref{mobius}.
 \subfigure[CAD model of a complex geometry \cite{mobius}.]{
     \label{mobius_cad}
 \hspace{1.3cm}
-\includegraphics[width=4.86cm]{mobius_cad.png}
+\includegraphics[width=5.86cm]{mobius_cad.png}
 }
 \subfigure[Volume fractions of the geometry within the mesh volume elements of an overlaid 200 x 100 x 200 Cartesian mesh.]{
     \label{mobius_mesh}
-\includegraphics[width=6.3cm]{mobius_mesh.png}
+\includegraphics[width=7.5cm]{mobius_mesh.png}
 }
 \caption{A CAD geometry and a
 discretized representation created using PyNE \texttt{discretize\_geom()}.}
