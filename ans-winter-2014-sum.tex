@@ -187,13 +187,13 @@ in mesh-based activation and burn-up workflows.
 
 The Rigorous Two-Step (R2S) method is used to estimate the shutdown dose rate
 (SDDR) in fusion systems from photons born from neutron activation products
-\cite{chen_rigorous_2002}. This method involves seperate neutron and photon
+\cite{chen_rigorous_2002}. This method involves separate neutron and photon
 transport simulations, coupled to a dedicated nuclear inventory analysis code.
-The PyNE \texttt{R2S} module impliments a mesh-based R2S method and
+The PyNE \texttt{R2S} module implements a mesh-based R2S method and
 accomplishes this coupling in-memory by leveraging the PyNE \texttt{mesh},
 \texttt{material}, \texttt{dagmc}, \texttt{mcnp}, and \texttt{alara} modules.
 The \texttt{R2S} module currently only supports transport with MCNP and nuclear
-inventory analysis with ALARA, but support for addtional physics codes is
+inventory analysis with ALARA, but support for additional physics codes is
 planned. Mesh-based photon source sampling is accomplished within MCNP by
 compiling MCNP against a custom source sampling library within PyNE.
 
@@ -202,14 +202,14 @@ compiling MCNP against a custom source sampling library within PyNE.
 
 \subsection{CADIS Variance Reduction}
 
-The Consistant Adjoint-Weighted Importance Sampling (CADIS) and the
+The Consistent Adjoint-Weighted Importance Sampling (CADIS) and the
 Forward-Weighted CADIS (FW-CADIS) method are hybrid Monte Carlo variance reduction
-techniques that use determinstic estimates of the forward and adjoint flux to
+techniques that use deterministic estimates of the forward and adjoint flux to
 generate Monte Carlo weight windows and source biasing parameters
-\cite{haghighat_monte_2003}. A mesh-based implimentation of this method has
+\cite{haghighat_monte_2003}. A mesh-based implementation of this method has
 been added to the PyNE \texttt{variancereduction} module. Work is currently
 underway to interface with the Denovo \cite{Evans2010} deterministic transport
-code to in order to acquire these determinsitic fluxes.
+code to in order to acquire these deterministic fluxes.
 
 
 \subsection{Tally Class}
@@ -233,13 +233,13 @@ a mesh object.
 \subsection{Amalgamation}
 
 While PyNE is ostensibly a Python oriented toolkit over two-thirds 
-of the codebase is written in C++. This makes it possible to use many 
+of the code base is written in C++. This makes it possible to use many 
 of the features of PyNE without needing Python. In order to simplify 
 the use of PyNE's C++ API we have added the ability to amalgamate all 
 of the C++ code into a single source and header file. This makes it 
 possible to add these two files to any project in order to use much of the 
 functionality in PyNE without having to worry about linking multiple 
-libraries in a seperate location. This is used in Cyclus (http://fuelcycle.org)
+libraries in a separate location. This is used in Cyclus (http://fuelcycle.org)
  to use PyNE features without adding a dependency on python.
 
 \subsection{ENSDF Improvements}
@@ -256,8 +256,8 @@ We have broken down the data from ENSDF into six distinct subsets. These
 include: excited level data, decay normalization data, gamma-ray data, alpha 
 decay data, $\beta^-$ decay, and electron capture/$\beta^+$ decay. In addition 
 to information about the radiations for all decay transitions listed in ENSDF we 
-have also included atomic data from NNDC to calculate X-ray emmissions from 
-conversion electrons in gamma ray emmission and electron capture/$\beta^+$ decay.
+have also included atomic data from NNDC to calculate X-ray emissions from 
+conversion electrons in gamma ray emission and electron capture/$\beta^+$ decay.
 The combination of this data makes it possible to calculate coincidence rates for
 gamma-rays.
 
@@ -292,7 +292,7 @@ users and has sought out support development by graduate students.
 A tutorial at the University of California, Berkeley was organized in November 
 to both reach out to new users and to gather feedback on the user experience of 
 PyNE. Over a dozen researchers attended. The audience included undergraduate 
-and graduate students in nuclear engineering as well as postdocs and faculty. 
+and graduate students in nuclear engineering as well as post-docs and faculty. 
 In a six hour workshop, the attendees installed PyNE and ran prepared examples 
 with the help of members of the development team. In addition to demonstrating 
 the core data manipulation capabilities of the PyNE toolkit, the workshop 
@@ -303,11 +303,11 @@ that were of interest in the context of their particular research.
 Based on the success of this event and the organic growth of our user base, a 
 second user workshop will be conducted at RPSD.
 
-The development team has also conducted development sprints both UC Berkeley 
-and the University of Wisconsin to cultivate the developer communities that 
-have arisen in those institutions. These sprints allow the diverse and 
-geographically dispersed development team to gather and collaborate on code 
-contributions in a coherent manner.
+The development team has also conducted development sprints both at the 
+University of California and the University of Wisconsin to cultivate the 
+developer communities that have arisen in those institutions. These sprints 
+allow the diverse and geographically dispersed development team to gather and 
+collaborate on code contributions in a coherent manner.
 
 In order to encourage young researchers to become involved in scientific 
 computing, a number of desired PyNE extensions have been defined online. These 
