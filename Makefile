@@ -2,11 +2,11 @@ manuscript = ans-winter-2014-sum
 references = bibliography
 latexopt   = -halt-on-error -file-line-error
 
-all: all-via-dvi
+all: all-via-pdf
 
 all-via-pdf: $(manuscript).tex $(references).bib
 	pdflatex $(latexopt) $(manuscript)
-	bibtex $(manuscript $<).aux
+	bibtex $(manuscript).aux
 	pdflatex $(latexopt) $(manuscript)
 	pdflatex $(latexopt) $(manuscript)
 
