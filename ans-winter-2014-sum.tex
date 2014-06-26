@@ -70,7 +70,8 @@ $^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, C
 PyNE is a suite of free and open source (BSD licensed) tools to aid in 
 computational nuclear science and engineering. PyNE seeks to provide 
 native implementations of common nuclear algorithms, as well as Python 
-bindings and I/O support for industry standard nuclear codes. In the past 
+bindings and I/O support for industry standard nuclear codes and data
+formats. In the past 
 year, the PyNE development team has improved PyNE's ease of use by making 
 binaries available for Windows, Mac, and Linux through the conda package 
 manager and adding Python 3 support. PyNE has also added many features 
@@ -105,7 +106,7 @@ PyNE was originally developed for the Python 2 interpreter as it was
 and still is the most common version of Python used in scientific computing. 
 Python 3 is slowly starting to replace it, however, as the default Python 
 version. With this changeover on the horizon the PyNE development team 
-made an effort in preparation for the 0.4 release to make PyNE compatible 
+made an effort in preparation for the v0.4 release to make PyNE compatible 
 with both versions. PyNE is now built and tested on Python 3 on a regular basis.
 
 \section{Feature Enhancements}
@@ -223,7 +224,7 @@ and manipulation of these tally objects in the future.
 \subsection{Fluka Module}
 
 The \texttt{fluka} module is designed to parse the output files from FLUKA, a fully 
-integrated particle physics Monte Carlo simulation package. Currently, 
+integrated particle physics Monte Carlo simulation package\cite{fluka07}. Currently, 
 this module only supports the parsing of USRBIN output files, which is 
 a file similar to a meshtal file in MCNP in that it tracks a certain 
 quantity over an evenly spaced volume mesh. This module parses the USRBIN 
