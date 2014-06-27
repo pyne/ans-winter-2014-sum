@@ -27,7 +27,7 @@ Julie Zachman$^{3}$}
 
 $^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, CA 94550\\
 \and $^{2}$ The University of California, Berkeley, 2521 Hearst Ave, Berkeley, CA 94709 \\
-\and $^{3}$ The University of Wisconsin-Madison, 1415 Engineering Drive, Madison, WI 53706\\
+\and $^{3}$ The University of Wisconsin-Madison, 1425 Engineering Drive, Madison, WI 53706\\
 \and $^{4}$ Georgia Institute of Technology, 770 State Street, Atlanta, GA 30332\\
 \and $^{5}$ Massachusetts Institute of Technology, 77 Massachusetts Avenue, Cambridge, MA 02139 \\
 \and $^{6}$ University of Chicago, 5747 S. Ellis Ave., Jones 311, Chicago, IL 60637\\
@@ -75,10 +75,10 @@ formats. In the past
 year, the PyNE development team has improved PyNE's ease of use by making 
 binaries available for Windows, Mac, and Linux through the conda package 
 manager and adding Python 3 support. PyNE has also added many features 
-including a Rigorous 2-step Activation workflow \cite{Biondo2014}, PyDAGMC 
-integration, CADIS variance reduction, and expanded ENSDF parsing support. 
+including a Rigorous 2-step Activation workflow \cite{Biondo2014}, DAGMC % For consistence we may want to provide citations for DAGMC and CADIS
+ray tracing, CADIS variance reduction, and expanded ENSDF parsing support. % DAGMC and CADIS are also not defined as acronyms yets.
 As a part of our ongoing efforts to implement a verification and validation 
-framework we also added continuous integration using the Build and Test Lab 
+framework we also added continuous integration using the Build and Test Lab \cite{batlab_2014}
 at the University of Wisconsin.
 
 \section{Usability Enhancements}
@@ -114,7 +114,7 @@ with both versions. PyNE is now built and tested on Python 3 on a regular basis.
 \subsection{Mesh}
 
 As of v0.4, PyNE includes a mesh representation interface that is used to 
-build up geometries, store materials, and solve spatial differential equations.
+build up geometries, store materials, and solve spatial differential equations. % store field data and materials
 This is implemented as a layer on top of MOAB meshes \cite{tautges_moab:_2004}.
 In addition to the PyTAPS interface \cite{pytaps} it also adds PyNE materials to 
 volume elements as well as a generic tagging interface. These features together 
@@ -127,7 +127,7 @@ methods for native mesh operations. The \texttt{mats} attribute is an
 instance of a PyNE \texttt{MaterialLibrary}. This is a mapping of volume 
 element handles to \Material objects. Tags---sometimes known as fields---are 
 accessible as attributes on the mesh object itself. There are several different types
-of tags (IMesh, Material, Metadata, Computed) depending on where the data should
+of tags (IMesh, Material, Metadata, Computed) depending on where the data should % I think "IMesh, Material, etc. next to be texttt'ed
 be stored. All tag types expose the same interface. 
 
 To do volumetric analysis and visualization, the \Mesh class is natively supported 
@@ -142,7 +142,7 @@ to analyze neutron flux in ITER is shown in Fig. \ref{ITER}
 \end{figure}
 
 
-\subsection{PyDAGMC Integration}
+\subsection{DAGMC Module}
 
 Direct Accelerated Geometry Monte Carlo (DAGMC) is a component of MOAB that
 facilitates Monte Carlo ray tracing on CAD geometries
@@ -150,7 +150,7 @@ facilitates Monte Carlo ray tracing on CAD geometries
 PyNE, providing a Python interface to these ray tracing capabilities. The
 \texttt{dagmc.discretize\_geom()} function accomplishes the common task of
 mapping geometry cells onto Cartesian or tetrahedral mesh. The
-\texttt{cell\_fracs\_to\_mats} to method of the \texttt{Mesh} class can be used
+\texttt{cell\_fracs\_to\_mats} method of the \texttt{Mesh} class can be used
 to seamlessly create PyNE \texttt{Mesh} objects tagged with materials, where
 the materials are mixtures of the contributions from the various geometry cells
 found in each mesh volume element. This especially useful for discretizing CAD
@@ -178,9 +178,9 @@ discretized representation created using PyNE \texttt{discretize\_geom()}.}
 
 ALARA is a nuclear inventory analysis code developed at University of Wisconsin
 - Madison \cite{wilson_validation_1998}. A module has been added to generate
-  ALARA input and parse ALARA output, primarily to and from PyNE \texttt{Mesh} objects. PyNE
+  ALARA input and parse ALARA output. PyNE
 \texttt{Mesh} objects tagged with flux and material data are used to generate
-flux and material input. The compositions of activated materials as calculated by
+input. The compositions of activated materials as calculated by
 ALARA can be read back into a PynE \texttt{Mesh} object. These components can be used
 in mesh-based activation and burn-up workflows.
 
@@ -198,8 +198,6 @@ inventory analysis with ALARA, but support for additional physics codes is
 planned. Mesh-based photon source sampling is accomplished within MCNP by
 compiling MCNP against a custom source sampling library within PyNE.
 
-% Not sure the best way to say this. Compile against pyne.so I guess? but it
-% comes from source_sampling.cpp.
 
 \subsection{CADIS Variance Reduction}
 
@@ -229,11 +227,11 @@ this module only supports the parsing of USRBIN output files, which is
 a file similar to a meshtal file in MCNP in that it tracks a certain 
 quantity over an evenly spaced volume mesh. This module parses the USRBIN 
 files and saves the tracked data and percent error data as attributes of 
-a mesh object.
+a \Mesh object.
 
 \subsection{Amalgamation}
 
-While PyNE is ostensibly a Python oriented toolkit over two-thirds 
+While PyNE is ostensibly a Python-oriented toolkit over two-thirds 
 of the code base is written in C++. This makes it possible to use many 
 of the features of PyNE without needing Python. In order to simplify 
 the use of PyNE's C++ API we have added the ability to amalgamate all 
@@ -242,12 +240,12 @@ possible to add these two files to any project in order to use much of the
 functionality in PyNE without having to worry about linking multiple 
 libraries in a separate location. This is used in Cyclus 
 \cite{carlsen_cyclus_2014} to use PyNE features without adding a dependency on 
-python.
+Python.
 
 \subsection{ENSDF Improvements}
 
 Previous versions of PyNE have included some limited ENSDF parsing capabilities. 
-These have been focused on extracting half lives and branching ratios of 
+These have been focused on extracting half-lives and branching ratios of 
 metastable and ground states. This has been vastly expanded to support the 
 parsing of most ENSDF record types and to make level structure and decay data 
 available in PyNE's C++/Python nuclear data interface. This makes it possible 
@@ -259,7 +257,7 @@ include: excited level data, decay normalization data, gamma-ray data, alpha
 decay data, $\beta^-$ decay, and electron capture/$\beta^+$ decay. In addition 
 to information about the radiations for all decay transitions listed in ENSDF we 
 have also included atomic data from NNDC to calculate X-ray emissions from 
-conversion electrons in gamma ray emission and electron capture/$\beta^+$ decay.
+conversion electrons in gamma ray emission and electron capture/$\beta^+$ decay. % gamma-ray or gamma ray
 The combination of this data makes it possible to calculate coincidence rates for
 gamma-rays.
 
@@ -273,13 +271,13 @@ $^{233}$U, $^{235}$U, $^{239}$Pu, and $^{241}$Pu.
 
 \section{Verification and Validation}
 
-This issue will be addressed in more detail in other concurrent publications 
-but the PyNE development team is working to implement documented verification 
+The PyNE development team is working to implement documented verification 
 and validation as a part of our basic development process. This has included: 
 ensuring all code changes to PyNE have at least one reviewer who was not an 
 author, requiring unit tests for all code additions, a coding style guide, 
 and requiring all tests to pass on continuous integration builds before 
 merging code changes. 
+This issue will be addressed in more detail in other concurrent publications.
 
 
 \section{Cultivation of Users and Developers} 
