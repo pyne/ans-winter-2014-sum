@@ -72,42 +72,18 @@ computational nuclear science and engineering. PyNE seeks to provide
 native implementations of common nuclear algorithms, as well as Python 
 bindings and I/O support for industry standard nuclear codes and data
 formats. In the past 
-year, the PyNE development team has improved PyNE's ease of use by making 
-binaries available for Windows, Mac, and Linux through the conda package 
-manager and adding Python 3 support. PyNE has also added many features 
-including a Rigorous 2-step Activation workflow \cite{Biondo2014}, DAGMC % For consistence we may want to provide citations for DAGMC and CADIS
-ray tracing, CADIS variance reduction, and expanded ENSDF parsing support. % DAGMC and CADIS are also not defined as acronyms yets.
+year PyNE has added many features 
+including a Rigorous 2-step Activation workflow (R2S) \cite{Biondo2014},  
+Direct Accelerated Geometry Monte Carlo (DAGMC)  % For consistence we may want to provide citations for DAGMC and CADIS
+ray tracing \cite{tautges_acceleration_2009}, Consistent Adjoint-Weighted 
+Importance Sampling (CADIS) variance reduction \cite{haghighat_monte_2003}, 
+and expanded ENSDF parsing support. % DAGMC and CADIS are also not defined as acronyms yets.
 As a part of our ongoing efforts to implement a verification and validation 
 framework we also added continuous integration using the Build and Test Lab \cite{batlab_2014}
-at the University of Wisconsin.
-
-\section{Usability Enhancements}
-\subsection{Installation Improvements and Binary Distributions}
-At our first PyNE workshop a significant amount of the instructional
-time was devoted to PyNE installation and configuration. This reduced 
-the amount of material we were able to cover significantly. From this
-experience the PyNE development team came to the conclusion that a major
-focus of our version 0.4 development efforts should be on making the 
-installation process simpler for non-developers.
-The core of this effort is based around the conda 
-package manager. Conda is an open source package manager that is capable 
-of managing packages on Windows, Mac and Linux. This makes it possible to use 
-a single package manager across all platforms. We developed a standard conda 
-package script which can be found at \url{https://github.com/conda/conda-recipes}. 
-This automates the installation of dependencies for PyNE, significantly 
-reducing the difficulty of building and installing the software.
-In addition, we used this tool to produce binary 
-packages on Linux and Mac. Finally, we developed a custom Windows build 
-environment to build a distributable Windows binary.
-
-\subsection{Python 3 Support}
-
-PyNE was originally developed for the Python 2 interpreter as it was 
-and still is the most common version of Python used in scientific computing. 
-Python 3 is slowly starting to replace it, however, as the default Python 
-version. With this changeover on the horizon the PyNE development team 
-made an effort in preparation for the v0.4 release to make PyNE compatible 
-with both versions. PyNE is now built and tested on Python 3 on a regular basis.
+at the University of Wisconsin. The PyNE development team has 
+also improved PyNE's ease of use by making 
+binaries available for Windows, Mac, and Linux through the conda package 
+manager and adding Python 3 support.
 
 \section{Feature Enhancements}
 
@@ -127,24 +103,25 @@ methods for native mesh operations. The \texttt{mats} attribute is an
 instance of a PyNE \texttt{MaterialLibrary}. This is a mapping of volume 
 element handles to \Material objects. Tags---sometimes known as fields---are 
 accessible as attributes on the mesh object itself. There are several different types
-of tags (IMesh, Material, Metadata, Computed) depending on where the data should % I think "IMesh, Material, etc. next to be texttt'ed
+of tags (\texttt{IMesh}, \texttt{Material}, \texttt{Metadata}, \texttt{Computed}) depending on where the data should % I think "IMesh, Material, etc. next to be texttt'ed
 be stored. All tag types expose the same interface. 
 
 To do volumetric analysis and visualization, the \Mesh class is natively supported 
 by the yt project \cite{2011ApJS..192....9T}. An example of the use of this mesh
-to analyze neutron flux in ITER is shown in Fig. \ref{ITER}
+to analyze neutron flux in ITER is shown in Fig. \ref{ITER}.
 
 \begin{figure}
     \centering
     \includegraphics[width=7.0cm, angle =0]{flux_slice.png}
-    \caption{A 2-D slice of a 3-D PyNE flux mesh of ITER plotted in yt}
+    \caption{A 2-D slice of a 3-D PyNE flux mesh of ITER plotted in yt. \textit{This model is for demonstration
+           purposes only.}}
     \label{ITER}
 \end{figure}
 
 
 \subsection{DAGMC Module}
 
-Direct Accelerated Geometry Monte Carlo (DAGMC) is a component of MOAB that
+Direct Accelerated Geometry Monte Carlo is a component of MOAB that
 facilitates Monte Carlo ray tracing on CAD geometries
 \cite{tautges_acceleration_2009}.  A \texttt{dagmc} module has been added to
 PyNE, providing a Python interface to these ray tracing capabilities. The
@@ -164,12 +141,14 @@ Fig. \ref{mobius}.
 \hspace{1.3cm}
 \includegraphics[width=5.86cm]{mobius_cad.png}
 }
-\subfigure[Volume fractions of the geometry within the mesh volume elements of an overlaid 200 x 100 x 200 Cartesian mesh.]{
+\subfigure[Volume fractions of the geometry within the mesh volume elements of an 
+           overlaid 200 x 100 x 200 Cartesian mesh.]{
     \label{mobius_mesh}
 \includegraphics[width=7.5cm]{mobius_mesh.png}
 }
 \caption{A CAD geometry and a
-discretized representation created using PyNE \texttt{discretize\_geom()}.}
+discretized representation created using PyNE \texttt{discretize\_geom()}.
+\textit{This model is for demonstration purposes only.}}
 \label{mobius}
 \end{figure}
 
@@ -201,7 +180,7 @@ compiling MCNP against a custom source sampling library within PyNE.
 
 \subsection{CADIS Variance Reduction}
 
-The Consistent Adjoint-Weighted Importance Sampling (CADIS) and the
+The Consistent Adjoint-Weighted Importance Sampling and the
 Forward-Weighted CADIS (FW-CADIS) method are hybrid Monte Carlo variance reduction
 techniques that use deterministic estimates of the forward and adjoint flux to
 generate Monte Carlo weight windows and source biasing parameters
@@ -257,9 +236,9 @@ include: excited level data, decay normalization data, gamma-ray data, alpha
 decay data, $\beta^-$ decay, and electron capture/$\beta^+$ decay. In addition 
 to information about the radiations for all decay transitions listed in ENSDF we 
 have also included atomic data from NNDC to calculate X-ray emissions from 
-conversion electrons in gamma ray emission and electron capture/$\beta^+$ decay. % gamma-ray or gamma ray
-The combination of this data makes it possible to calculate coincidence rates for
-gamma-rays.
+conversion electrons in gamma-ray emission and electron capture/$\beta^+$ decay. % gamma-ray or gamma ray
+Work is underway to add support to the PyNE \Material object for decay data to
+facilitate generation of complex sources for use in Monte Carlo transport codes. 
 
 \subsection{Fission Yield Data}
 
@@ -278,6 +257,35 @@ author, requiring unit tests for all code additions, a coding style guide,
 and requiring all tests to pass on continuous integration builds before 
 merging code changes. 
 This issue will be addressed in more detail in other concurrent publications.
+
+\section{Usability Enhancements}
+
+\subsection{Installation Improvements and Binary Distributions}
+At our first PyNE workshop a significant amount of the instructional
+time was devoted to PyNE installation and configuration. This reduced 
+the amount of material we were able to cover significantly. From this
+experience the PyNE development team came to the conclusion that a major
+focus of our version 0.4 development efforts should be on making the 
+installation process simpler for non-developers.
+The core of this effort is based around the conda 
+package manager. Conda is an open source package manager that is capable 
+of managing packages on Windows, Mac and Linux. This makes it possible to use 
+a single package manager across all platforms. We developed a standard conda 
+package script which can be found at \url{https://github.com/conda/conda-recipes}. 
+This automates the installation of dependencies for PyNE, significantly 
+reducing the difficulty of building and installing the software.
+In addition, we used this tool to produce binary 
+packages on Linux and Mac. Finally, we developed a custom Windows build 
+environment to build a distributable Windows binary.
+
+\subsection{Python 3 Support}
+
+PyNE was originally developed for the Python 2 interpreter as it was 
+and still is the most common version of Python used in scientific computing. 
+Python 3 is slowly starting to replace it, however, as the default Python 
+version. With this changeover on the horizon the PyNE development team 
+made an effort in preparation for the v0.4 release to make PyNE compatible 
+with both versions. PyNE is now built and tested on Python 3 on a regular basis.
 
 
 \section{Cultivation of Users and Developers} 
