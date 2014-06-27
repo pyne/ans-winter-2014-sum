@@ -58,8 +58,8 @@ $^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, C
 \newcommand{\ud}{\mathop{}\!\mathrm{d}} 
 
 % Common APIs
-\newcommand{\Mesh}{\texttt{Mesh}} 
-\newcommand{\Material}{\texttt{Material}} 
+\newcommand{\Mesh}{\texttt{Mesh} } 
+\newcommand{\Material}{\texttt{Material} } 
 
 % upright derivative symbol
 \begin{document}
@@ -83,7 +83,7 @@ framework we also added continuous integration using the Build and Test Lab \cit
 at the University of Wisconsin. The PyNE development team has 
 also improved PyNE's ease of use by making 
 binaries available for Windows, Mac, and Linux through the conda package 
-manager and adding Python 3 support.
+manager as well as adding Python 3 support.
 
 \section{Feature Enhancements}
 
@@ -126,7 +126,7 @@ facilitates Monte Carlo ray tracing on CAD geometries
 \cite{tautges_acceleration_2009}.  A \texttt{dagmc} module has been added to
 PyNE, providing a Python interface to these ray tracing capabilities. The
 \texttt{dagmc.discretize\_geom()} function accomplishes the common task of
-mapping geometry cells onto Cartesian or tetrahedral mesh. The
+mapping geometry cells onto a Cartesian or tetrahedral mesh. The
 \texttt{cell\_fracs\_to\_mats} method of the \texttt{Mesh} class can be used
 to seamlessly create PyNE \texttt{Mesh} objects tagged with materials, where
 the materials are mixtures of the contributions from the various geometry cells
@@ -156,11 +156,12 @@ discretized representation created using PyNE \texttt{discretize\_geom()}.
 \subsection{ALARA Module}
 
 ALARA is a nuclear inventory analysis code developed at University of Wisconsin
-- Madison \cite{wilson_validation_1998}. A module has been added to generate
-  ALARA input and parse ALARA output. PyNE
-\texttt{Mesh} objects tagged with flux and material data are used to generate
+- Madison \cite{wilson_validation_1998}. A module has been added to PyNE to facilitate
+the generation of
+  ALARA input and the parsing of ALARA output. PyNE
+\texttt{Mesh} objects tagged with flux and material data can be used to generate
 input. The compositions of activated materials as calculated by
-ALARA can be read back into a PynE \texttt{Mesh} object. These components can be used
+ALARA can also be read back into a PyNE \texttt{Mesh} object. These components can be used
 in mesh-based activation and burn-up workflows.
 
 \subsection{R2S Activation Workflow}
@@ -218,25 +219,26 @@ of the C++ code into a single source and header file. This makes it
 possible to add these two files to any project in order to use much of the 
 functionality in PyNE without having to worry about linking multiple 
 libraries in a separate location. This is used in Cyclus 
-\cite{carlsen_cyclus_2014} to use PyNE features without adding a dependency on 
-Python.
+\cite{carlsen_cyclus_2014} to use PyNE features without adding Python as
+ a dependency.
 
 \subsection{ENSDF Improvements}
 
-Previous versions of PyNE have included some limited ENSDF parsing capabilities. 
+Previous versions of PyNE have included some ENSDF parsing capabilities. 
 These have been focused on extracting half-lives and branching ratios of 
 metastable and ground states. This has been vastly expanded to support the 
 parsing of most ENSDF record types and to make level structure and decay data 
 available in PyNE's C++/Python nuclear data interface. This makes it possible 
 to use PyNE to look up most structure and decay data similar to online tools
-such as NuDat. 
+such as NuDat \url{http://www.nndc.bnl.gov/nudat2/}. 
 
 We have broken down the data from ENSDF into six distinct subsets. These 
 include: excited level data, decay normalization data, gamma-ray data, alpha 
 decay data, $\beta^-$ decay, and electron capture/$\beta^+$ decay. In addition 
 to information about the radiations for all decay transitions listed in ENSDF we 
-have also included atomic data from NNDC to calculate X-ray emissions from 
-conversion electrons in gamma-ray emission and electron capture/$\beta^+$ decay. % gamma-ray or gamma ray
+have also included atomic data from the National Nuclear Data Center to calculate 
+X-ray emissions from 
+conversion electrons in gamma-ray emission and electron capture decay.
 Work is underway to add decay data access to the PyNE \texttt{Material} object to
 facilitate generation of complex sources for use in Monte Carlo transport codes. 
 
@@ -274,8 +276,8 @@ a single package manager across all platforms. We developed a standard conda
 package script which can be found at \url{https://github.com/conda/conda-recipes}. 
 This automates the installation of dependencies for PyNE, significantly 
 reducing the difficulty of building and installing the software.
-In addition, we used this tool to produce binary 
-packages on Linux and Mac. Finally, we developed a custom Windows build 
+In addition, we used this package script to automate the production of binary 
+packages for Linux and Mac. Finally, we developed a custom Windows build 
 environment to build a distributable Windows binary.
 
 \subsection{Python 3 Support}
@@ -289,15 +291,15 @@ with both versions. PyNE is now built and tested on Python 3 on a regular basis.
 
 
 \section{Cultivation of Users and Developers} 
-Computational toolkits in the sciences grow more robust by a broad user base 
-who tests core capabilities with each use. Similarly, such toolkits grow more 
+Computational toolkits in the sciences grow more robust by leveraging a broad user base 
+who test core capabilities with each use. Similarly, such toolkits grow more 
 powerful by a broad developer base that serves the community by contributing 
 new, research-relevant features. Development of a sustainable user and 
 developer community is therefore integral to the success of the PyNE toolkit. 
 To this end, the development team has organized tutorials to reach out to new 
 users and has sought out support development by graduate students.
 
-A tutorial at the University of California, Berkeley was organized in November 
+A tutorial was organized in November at the University of California, Berkeley 
 to both reach out to new users and to gather feedback on the user experience of 
 PyNE. Over a dozen researchers attended. The audience included undergraduate 
 and graduate students in nuclear engineering as well as post-docs and faculty. 
@@ -309,9 +311,10 @@ brainstorm and suggest extensions, features, and improvements for the toolkit
 that were of interest in the context of their particular research.
 
 Based on the success of this event and the organic growth of our user base, a 
-second user workshop will be conducted at RPSD.
+second user workshop will be conducted at the 18th Topical Meeting of the 
+Radiation Protection and Shielding Division of ANS in September 2014.
 
-The development team has also conducted development sprints both at the 
+The development team has also conducted development sprints at both the 
 University of California and the University of Wisconsin to cultivate the 
 developer communities that have arisen in those institutions. These sprints 
 allow the diverse and geographically dispersed development team to gather and 
@@ -331,11 +334,11 @@ In the past year the PyNE development team has worked to improve PyNE's
 usability in addition to adding new features. The availability of binaries 
 for stable releases has made PyNE more accessible to those who are users 
 but not developers. The PyNE project will continue to create free and open 
-source tools that easily interface the plethora of choices available in 
+source tools that easily interface with the plethora of choices available in 
 nuclear engineering and scientific computing. 
 
 \vspace{0.1in}
-\noindent LLNL-ABS-656040-DRAFT
+\noindent LLNL-ABS-656040
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{ans} 
