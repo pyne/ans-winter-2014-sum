@@ -27,7 +27,7 @@ Julie Zachman$^{3}$}
 
 $^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, CA 94550\\
 \and $^{2}$ The University of California, Berkeley, 2521 Hearst Ave, Berkeley, CA 94709 \\
-\and $^{3}$ The University of Wisconsin-Madison, 1415 Engineering Drive, Madison, WI 53706\\ % This is the dept. address, the nuclear people are in 1500.
+\and $^{3}$ The University of Wisconsin-Madison, 1500 Engineering Drive, Madison, WI 53706\\ % This is the dept. address, the nuclear people are in 1500.
 \and $^{4}$ Georgia Institute of Technology, 770 State Street, Atlanta, GA 30332\\
 \and $^{5}$ Massachusetts Institute of Technology, 77 Massachusetts Avenue, Cambridge, MA 02139 \\
 \and $^{6}$ University of Chicago, 5747 S. Ellis Ave., Jones 311, Chicago, IL 60637\\
@@ -58,8 +58,8 @@ $^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, C
 \newcommand{\ud}{\mathop{}\!\mathrm{d}} 
 
 % Common APIs
-\newcommand{\Mesh}{\texttt{Mesh}} 
-\newcommand{\Material}{\texttt{Material}} 
+\newcommand{\Mesh}{\texttt{Mesh} } 
+\newcommand{\Material}{\texttt{Material} } 
 
 % upright derivative symbol
 \begin{document}
@@ -72,42 +72,18 @@ computational nuclear science and engineering. PyNE seeks to provide
 native implementations of common nuclear algorithms, as well as Python 
 bindings and I/O support for industry standard nuclear codes and data
 formats. In the past 
-year, the PyNE development team has improved PyNE's ease of use by making 
-binaries available for Windows, Mac, and Linux through the conda package 
-manager and adding Python 3 support. PyNE has also added many features 
-including a Rigorous 2-step Activation workflow \cite{Biondo2014}, DAGMC % For consistence we may want to provide citations for DAGMC and CADIS
-ray tracing, CADIS variance reduction, and expanded ENSDF parsing support. % DAGMC and CADIS are also not defined as acronyms yets.
+year PyNE has added many features 
+including a Rigorous 2-step Activation workflow (R2S) \cite{Biondo2014},  
+Direct Accelerated Geometry Monte Carlo (DAGMC)  % For consistence we may want to provide citations for DAGMC and CADIS
+ray tracing \cite{tautges_acceleration_2009}, Consistent Adjoint-Weighted 
+Importance Sampling (CADIS) variance reduction \cite{haghighat_monte_2003}, 
+and expanded ENSDF parsing support. % DAGMC and CADIS are also not defined as acronyms yets.
 As a part of our ongoing efforts to implement a verification and validation 
 framework we also added continuous integration using the Build and Test Lab \cite{batlab_2014}
-at the University of Wisconsin.
-
-\section{Usability Enhancements}
-\subsection{Installation Improvements and Binary Distributions}
-At our first PyNE workshop a significant amount of the instructional
-time was devoted to PyNE installation and configuration. This reduced 
-the amount of material we were able to cover significantly. From this
-experience the PyNE development team came to the conclusion that a major
-focus of our version 0.4 development efforts should be on making the 
-installation process simpler for non-developers.
-The core of this effort is based around the conda 
-package manager. Conda is an open source package manager that is capable 
-of managing packages on Windows, Mac and Linux. This makes it possible to use 
-a single package manager across all platforms. We developed a standard conda 
-package script which can be found at \url{https://github.com/conda/conda-recipes}. 
-This automates the installation of dependencies for PyNE, significantly 
-reducing the difficulty of building and installing the software.
-In addition, we used this tool to produce binary 
-packages on Linux and Mac. Finally, we developed a custom Windows build 
-environment to build a distributable Windows binary.
-
-\subsection{Python 3 Support}
-
-PyNE was originally developed for the Python 2 interpreter as it was 
-and still is the most common version of Python used in scientific computing. 
-Python 3 is slowly starting to replace it, however, as the default Python 
-version. With this changeover on the horizon the PyNE development team 
-made an effort in preparation for the v0.4 release to make PyNE compatible 
-with both versions. PyNE is now built and tested on Python 3 on a regular basis.
+at the University of Wisconsin. The PyNE development team has 
+also improved PyNE's ease of use by making 
+binaries available for Windows, Mac, and Linux through the conda package 
+manager as well as adding Python 3 support.
 
 \section{Feature Enhancements}
 
@@ -127,29 +103,30 @@ methods for native mesh operations. The \texttt{mats} attribute is an
 instance of a PyNE \texttt{MaterialLibrary}. This is a mapping of volume 
 element handles to \Material objects. Tags---sometimes known as fields---are 
 accessible as attributes on the mesh object itself. There are several different types
-of tags (IMesh, Material, Metadata, Computed) depending on where the data should % I think "IMesh, Material, etc. next to be texttt'ed
+of tags (\texttt{IMesh}, \texttt{Material}, \texttt{Metadata}, \texttt{Computed}) depending on where the data should % I think "IMesh, Material, etc. next to be texttt'ed
 be stored. All tag types expose the same interface. 
 
 To do volumetric analysis and visualization, the \Mesh class is natively supported 
 by the yt project \cite{2011ApJS..192....9T}. An example of the use of this mesh
-to analyze neutron flux in ITER is shown in Fig. \ref{ITER}
+to analyze neutron flux in ITER is shown in Fig. \ref{ITER}.
 
 \begin{figure}
     \centering
     \includegraphics[width=7.0cm, angle =0]{flux_slice.png}
-    \caption{A 2-D slice of a 3-D PyNE flux mesh of ITER plotted in yt}
+    \caption{A 2-D slice of a 3-D PyNE flux mesh of ITER plotted in yt. \textit{This model is for demonstration
+           purposes only.}}
     \label{ITER}
 \end{figure}
 
 
 \subsection{DAGMC Module}
 
-Direct Accelerated Geometry Monte Carlo (DAGMC) is a component of MOAB that
+Direct Accelerated Geometry Monte Carlo is a component of MOAB that
 facilitates Monte Carlo ray tracing on CAD geometries
 \cite{tautges_acceleration_2009}.  A \texttt{dagmc} module has been added to
 PyNE, providing a Python interface to these ray tracing capabilities. The
 \texttt{dagmc.discretize\_geom()} function accomplishes the common task of
-mapping geometry cells onto Cartesian or tetrahedral mesh. The
+mapping geometry cells onto a Cartesian or tetrahedral mesh. The
 \texttt{cell\_fracs\_to\_mats} method of the \texttt{Mesh} class can be used
 to seamlessly create PyNE \texttt{Mesh} objects tagged with materials, where
 the materials are mixtures of the contributions from the various geometry cells
@@ -164,12 +141,14 @@ Fig. \ref{mobius}.
 \hspace{1.3cm}
 \includegraphics[width=5.86cm]{mobius_cad.png}
 }
-\subfigure[Volume fractions of the geometry within the mesh volume elements of an overlaid 200 x 100 x 200 Cartesian mesh.]{
+\subfigure[Volume fractions of the geometry within the mesh volume elements of an 
+           overlaid 200 x 100 x 200 Cartesian mesh.]{
     \label{mobius_mesh}
 \includegraphics[width=7.5cm]{mobius_mesh.png}
 }
 \caption{A CAD geometry and a
-discretized representation created using PyNE \texttt{discretize\_geom()}.}
+discretized representation created using PyNE \texttt{discretize\_geom()}.
+\textit{This model is for demonstration purposes only.}}
 \label{mobius}
 \end{figure}
 
@@ -177,11 +156,12 @@ discretized representation created using PyNE \texttt{discretize\_geom()}.}
 \subsection{ALARA Module}
 
 ALARA is a nuclear inventory analysis code developed at University of Wisconsin
-- Madison \cite{wilson_validation_1998}. A module has been added to generate
-  ALARA input and parse ALARA output. PyNE
-\texttt{Mesh} objects tagged with flux and material data are used to generate
+- Madison \cite{wilson_validation_1998}. A module has been added to PyNE to facilitate
+the generation of
+  ALARA input and the parsing of ALARA output. PyNE
+\texttt{Mesh} objects tagged with flux and material data can be used to generate
 input. The compositions of activated materials as calculated by
-ALARA can be read back into a PynE \texttt{Mesh} object. These components can be used
+ALARA can also be read back into a PyNE \texttt{Mesh} object. These components can be used
 in mesh-based activation and burn-up workflows.
 
 \subsection{R2S Activation Workflow}
@@ -201,7 +181,7 @@ compiling MCNP against a custom source sampling library within PyNE.
 
 \subsection{CADIS Variance Reduction}
 
-The Consistent Adjoint-Weighted Importance Sampling (CADIS) and the
+The Consistent Adjoint-Weighted Importance Sampling and the
 Forward-Weighted CADIS (FW-CADIS) method are hybrid Monte Carlo variance reduction
 techniques that use deterministic estimates of the forward and adjoint flux to
 generate Monte Carlo weight windows and source biasing parameters
@@ -239,27 +219,28 @@ of the C++ code into a single source and header file. This makes it
 possible to add these two files to any project in order to use much of the 
 functionality in PyNE without having to worry about linking multiple 
 libraries in a separate location. This is used in Cyclus 
-\cite{carlsen_cyclus_2014} to use PyNE features without adding a dependency on 
-Python.
+\cite{carlsen_cyclus_2014} to use PyNE features without adding Python as
+ a dependency.
 
 \subsection{ENSDF Improvements}
 
-Previous versions of PyNE have included some limited ENSDF parsing capabilities. 
+Previous versions of PyNE have included some ENSDF parsing capabilities. 
 These have been focused on extracting half-lives and branching ratios of 
 metastable and ground states. This has been vastly expanded to support the 
 parsing of most ENSDF record types and to make level structure and decay data 
 available in PyNE's C++/Python nuclear data interface. This makes it possible 
 to use PyNE to look up most structure and decay data similar to online tools
-such as NuDat. 
+such as NuDat \url{http://www.nndc.bnl.gov/nudat2/}. 
 
 We have broken down the data from ENSDF into six distinct subsets. These 
 include: excited level data, decay normalization data, gamma-ray data, alpha 
 decay data, $\beta^-$ decay, and electron capture/$\beta^+$ decay. In addition 
 to information about the radiations for all decay transitions listed in ENSDF we 
-have also included atomic data from NNDC to calculate X-ray emissions from 
-conversion electrons in gamma ray emission and electron capture/$\beta^+$ decay. % gamma-ray or gamma ray
-The combination of this data makes it possible to calculate coincidence rates for
-gamma-rays.
+have also included atomic data from the National Nuclear Data Center to calculate 
+X-ray emissions from 
+conversion electrons in gamma-ray emission and electron capture decay.
+Work is underway to add decay data access to the PyNE \texttt{Material} object to
+facilitate generation of complex sources for use in Monte Carlo transport codes. 
 
 \subsection{Fission Yield Data}
 
@@ -279,17 +260,46 @@ and requiring all tests to pass on continuous integration builds before
 merging code changes. 
 This issue will be addressed in more detail in other concurrent publications.
 
+\section{Usability Enhancements}
+
+\subsection{Installation Improvements and Binary Distributions}
+At our first PyNE workshop a significant amount of the instructional
+time was devoted to PyNE installation and configuration. This reduced 
+the amount of material we were able to cover significantly. From this
+experience the PyNE development team came to the conclusion that a major
+focus of our version 0.4 development efforts should be on making the 
+installation process simpler for non-developers.
+The core of this effort is based around the conda 
+package manager. Conda is an open source package manager that is capable 
+of managing packages on Windows, Mac and Linux. This makes it possible to use 
+a single package manager across all platforms. We developed a standard conda 
+package script which can be found at \url{https://github.com/conda/conda-recipes}. 
+This automates the installation of dependencies for PyNE, significantly 
+reducing the difficulty of building and installing the software.
+In addition, we used this package script to automate the production of binary 
+packages for Linux and Mac. Finally, we developed a custom Windows build 
+environment to build a distributable Windows binary.
+
+\subsection{Python 3 Support}
+
+PyNE was originally developed for the Python 2 interpreter as it was 
+and still is the most common version of Python used in scientific computing. 
+Python 3 is slowly starting to replace it, however, as the default Python 
+version. With this changeover on the horizon the PyNE development team 
+made an effort in preparation for the v0.4 release to make PyNE compatible 
+with both versions. PyNE is now built and tested on Python 3 on a regular basis.
+
 
 \section{Cultivation of Users and Developers} 
-Computational toolkits in the sciences grow more robust by a broad user base 
-who tests core capabilities with each use. Similarly, such toolkits grow more 
+Computational toolkits in the sciences grow more robust by leveraging a broad user base 
+who test core capabilities with each use. Similarly, such toolkits grow more 
 powerful by a broad developer base that serves the community by contributing 
 new, research-relevant features. Development of a sustainable user and 
 developer community is therefore integral to the success of the PyNE toolkit. 
 To this end, the development team has organized tutorials to reach out to new 
 users and has sought out support development by graduate students.
 
-A tutorial at the University of California, Berkeley was organized in November 
+A tutorial was organized in November at the University of California, Berkeley 
 to both reach out to new users and to gather feedback on the user experience of 
 PyNE. Over a dozen researchers attended. The audience included undergraduate 
 and graduate students in nuclear engineering as well as post-docs and faculty. 
@@ -301,9 +311,10 @@ brainstorm and suggest extensions, features, and improvements for the toolkit
 that were of interest in the context of their particular research.
 
 Based on the success of this event and the organic growth of our user base, a 
-second user workshop will be conducted at RPSD.
+second user workshop will be conducted at the 18th Topical Meeting of the 
+Radiation Protection and Shielding Division of ANS in September 2014.
 
-The development team has also conducted development sprints both at the 
+The development team has also conducted development sprints at both the 
 University of California and the University of Wisconsin to cultivate the 
 developer communities that have arisen in those institutions. These sprints 
 allow the diverse and geographically dispersed development team to gather and 
@@ -323,11 +334,11 @@ In the past year the PyNE development team has worked to improve PyNE's
 usability in addition to adding new features. The availability of binaries 
 for stable releases has made PyNE more accessible to those who are users 
 but not developers. The PyNE project will continue to create free and open 
-source tools that easily interface the plethora of choices available in 
+source tools that easily interface with the plethora of choices available in 
 nuclear engineering and scientific computing. 
 
 \vspace{0.1in}
-\noindent LLNL-ABS-656040-DRAFT
+\noindent LLNL-ABS-656040
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{ans} 
