@@ -69,10 +69,10 @@ $^{1}$ Lawrence Livermore National Laboratory, 7000 East Ave L-188, Livermore, C
 
 PyNE is a suite of free and open source (BSD licensed) tools to aid in 
 computational nuclear science and engineering. PyNE seeks to provide 
-native implementations of common nuclear algorithms, as well as Python 
-bindings and I/O support for industry standard nuclear codes and data
-formats. In the past 
-year PyNE has added many features 
+native implementations of common nuclear algorithms, as well as an interface for the
+scripting language Python and I/O support for industry standard nuclear codes and data
+formats.
+In the past year PyNE has added many features 
 including a Rigorous 2-step Activation workflow (R2S) \cite{Biondo2014},  
 Direct Accelerated Geometry Monte Carlo (DAGMC)  % For consistence we may want to provide citations for DAGMC and CADIS
 ray tracing \cite{tautges_acceleration_2009}, Consistent Adjoint-Weighted 
@@ -92,7 +92,9 @@ manager as well as adding Python 3 support.
 As of v0.4, PyNE includes a mesh representation interface that is used to 
 build up geometries, store materials, and solve spatial differential equations. % store field data and materials
 This is implemented as a layer on top of MOAB meshes \cite{tautges_moab:_2004}.
-In addition to the PyTAPS interface \cite{pytaps} it also adds PyNE materials to 
+In addition to the PyTAPS interface \cite{pytaps}, a Python interface to interact with MOAB mesh objects,
+ it also adds PyNE \Material objects, 
+which allow the user to define a mix of multiple isotopes, to  % Better short description of Materials object??
 volume elements as well as a generic tagging interface. These features together 
 form a generic, easy-to-use mesh library that is capable of handling a plethora
 of nuclear engineering problems.
@@ -103,7 +105,8 @@ methods for native mesh operations. The \texttt{mats} attribute is an
 instance of a PyNE \texttt{MaterialLibrary}. This is a mapping of volume 
 element handles to \Material objects. Tags---sometimes known as fields---are 
 accessible as attributes on the mesh object itself. There are several different types
-of tags (\texttt{IMesh}, \texttt{Material}, \texttt{Metadata}, \texttt{Computed}) depending on where the data should % I think "IMesh, Material, etc. next to be texttt'ed
+of tags (\texttt{IMesh}, \texttt{Material}, \texttt{Metadata}, \texttt{Computed}) 
+depending on where the data should 
 be stored. All tag types expose the same interface. 
 
 To do volumetric analysis and visualization, the \Mesh class is natively supported 
@@ -311,8 +314,9 @@ brainstorm and suggest extensions, features, and improvements for the toolkit
 that were of interest in the context of their particular research.
 
 Based on the success of this event and the organic growth of our user base, a 
-second user workshop will be conducted at the 18th Topical Meeting of the 
-Radiation Protection and Shielding Division of ANS in September 2014.
+second user workshop was conducted at the 18th Topical Meeting of the 
+Radiation Protection and Shielding Division of ANS in September 2014. We plan
+to hold more of these in the future.
 
 The development team has also conducted development sprints at both the 
 University of California and the University of Wisconsin to cultivate the 
